@@ -1,0 +1,37 @@
+---
+
+- name: create route table for publiv subnet to use internet gateway for internet stuff
+  local_action:
+    module: ec2_vpc_route_table
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ aws_vpc.vpc_id }}"
+    tags:
+      Name: "{{ aws_project }}_public_route"
+    subnets:
+      - "{{ aws_vpc.subnets[0].id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ aws_vpc.igw_id }}"
+  register: aws_vpc_public_route_table
+  
+- debug: var=aws_vpc_public_route_table
+
+- name: create route table for private subnet to use nat gateway for internet stuff
+  local_action:
+    module: ec2_vpc_route_table
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ aws_vpc.vpc_id }}"
+    tags:
+      Name: "{{ aws_project }}_private_route"
+    subnets:
+      - "{{ aws_vpc.subnets[1].id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ aws_vpc_nat_gateway.nat_gateway_id }}"
+  register: aws_vpc_private_route_table
+  
+- debug: var=aws_vpc_private_route_table
+  
+        

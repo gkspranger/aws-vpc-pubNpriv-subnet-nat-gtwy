@@ -1,0 +1,12 @@
+---
+
+- name: key pair
+  ec2_key:
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    state: present
+    name: "{{ aws_project }}"
+    key_material: "{{ item }}"
+  with_file: aws_rsa.pub
+  register: aws_key_pairs
+  
