@@ -7,7 +7,7 @@
     region: "{{ aws_region }}"
     vpc_id: "{{ aws_vpc.vpc_id }}"
     tags:
-      Name: "{{ aws_project }}_public_route"
+      Name: "{{ aws_project }}_public"
     subnets:
       - "{{ aws_vpc.subnets[0].id }}"
     routes:
@@ -24,7 +24,7 @@
     region: "{{ aws_region }}"
     vpc_id: "{{ aws_vpc.vpc_id }}"
     tags:
-      Name: "{{ aws_project }}_private_route"
+      Name: "{{ aws_project }}_private"
     subnets:
       - "{{ aws_vpc.subnets[1].id }}"
     routes:

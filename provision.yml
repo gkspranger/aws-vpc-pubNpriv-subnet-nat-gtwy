@@ -9,6 +9,7 @@
     - aws_vpc
     - aws_vpc_nat_gateway
     - aws_vpc_route_tables
+    - aws_vpc_nacl
 #    - aws_security_groups
 #    - aws_ec2_key_pairs
 #    - aws_iam_roles

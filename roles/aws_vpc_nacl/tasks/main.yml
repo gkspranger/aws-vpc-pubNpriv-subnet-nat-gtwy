@@ -1,0 +1,42 @@
+---
+
+- name: create nacl public 1
+  local_action:
+    module: ec2_vpc_nacl
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ aws_vpc.vpc_id }}"
+    name: "{{ aws_project }}_public_1"
+    subnets:
+      - "{{ aws_project }}_public" 
+    tags:
+      Name: "{{ aws_project }}_public_1"
+    ingress:
+      - [ 100, "tcp", "allow", "0.0.0.0/0", null, null, 80, 80 ]
+      - [ 1000, "tcp", "allow", "10.123.0.0/16", null, null, 22, 22 ]
+    egress:
+      - [ 100, "all", "allow", "0.0.0.0/0", null, null, null, null ]
+    state: 'present'
+  register: aws_vpc_public_nacl_1
+
+- debug: var=aws_vpc_public_nacl_1
+
+- name: create nacl public/private 1
+  local_action:
+    module: ec2_vpc_nacl
+    profile: "{{ aws_profile }}"
+    region: "{{ aws_region }}"
+    vpc_id: "{{ aws_vpc.vpc_id }}"
+    name: "{{ aws_project }}_private_1"
+    subnets:
+      - "{{ aws_project }}_private" 
+    tags:
+      Name: "{{ aws_project }}_private_1"
+    ingress:
+      - [ 1000, "tcp", "allow", "10.123.0.0/16", null, null, 22, 22 ]
+    egress:
+      - [ 100, "all", "allow", "0.0.0.0/0", null, null, null, null ]
+    state: 'present'
+  register: aws_vpc_private_nacl_1
+  
+- debug: var=aws_vpc_private_nacl_1
