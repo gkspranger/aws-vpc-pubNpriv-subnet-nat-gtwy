@@ -4,4 +4,4 @@ aws_ami: ami-b73b63a0
 aws_region: us-east-1
 aws_profile: gks
 
-aws_project: networking
+aws_project: swf

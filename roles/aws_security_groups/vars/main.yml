@@ -1,7 +1,7 @@
 ---
   
 aws_security_groups_vars:
-  - name: ssh
+  - name: "{{ aws_project }}_base"
     description: ssh
     rules:
       - proto: tcp

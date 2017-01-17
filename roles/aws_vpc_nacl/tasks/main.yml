@@ -13,7 +13,7 @@
       Name: "{{ aws_project }}_public_1"
     ingress:
       - [ 1000, "tcp", "allow", "0.0.0.0/0", null, null, 80, 80 ]
-      - [ 2000, "tcp", "allow", "10.123.0.0/16", null, null, 22, 22 ]
+      - [ 2000, "tcp", "allow", "0.0.0.0/0", null, null, 22, 22 ]
     egress:
       - [ 100, "all", "allow", "0.0.0.0/0", null, null, null, null ]
     state: 'present'
